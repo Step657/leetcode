@@ -59,7 +59,7 @@ class Fib(object):
 
 
 class CombineCoins(object):
-    """凑零钱：给你 k 种面值的硬币，面值分别为 c1, c2 ... ck，每种硬币的数量无限，
+    """332. 凑零钱：给你 k 种面值的硬币，面值分别为 c1, c2 ... ck，每种硬币的数量无限，
     再给一个总金额 amount，问你最少需要几枚硬币凑出这个金额，如果不可能凑出，"""
 
     def __int__(self, coins, amount):
@@ -85,7 +85,8 @@ class CombineCoins(object):
             for coin in coins:
                 subproblem = dp(n - coin)
                 # 子问题无解，跳过
-                if subproblem == -1: continue
+                if subproblem == -1:
+                    continue
                 res = min(res, 1 + subproblem)
 
             return res if res != float('INF') else -1
