@@ -19,6 +19,7 @@
     (若无法完成，可能就是dp数组的定义不够恰当；或者可能dp数组存储的信息还不够，不足以退出下一步的答案，
     需要把dp数组扩大成二维数组甚至三维数组。)
 """
+from typing import List
 
 
 class LIS(object):
@@ -47,23 +48,49 @@ class LIS(object):
 
         return res
 
-    def lengthOfLIS_2(self):
-        """二分查找"""
+    def lengthOfLIS_2(self, nums: List[int]) -> int:
+        length = len(nums)
+        if length == 0:
+            return 0
+        dp = [1 for i in range(length)]
+
+        for i in range(length):
+            for j in range(i):
+                if nums[i] > nums[j]:
+                    dp[i] = max(dp[i], dp[j] + 1)
+
+        return max(dp)
+
+    def lengthOfLIS_3(self):
+        """
+        二分查找(进阶), patience sorting(耐心排序)
+        利用二分查找来找到一个合适的牌堆顶来放
+        """
         nums = self.nums
-        top = []
+        top = []   # 初始化堆为0堆
         piles = 0
         for poker in nums:
             # 搜索左侧边界的二分查找
             left, right = 0, piles
             while left < right:
-                mid = (left + right) / 2
+                mid = (left + right) // 2
                 if top[mid] > poker:
                     right = mid
                 elif top[mid] < poker:
                     left = mid + 1
                 else:
                     right = mid
+            # 没有找到合适的牌堆，新建一堆（左侧边界等于牌堆数）
             if left == piles:
                 piles += 1
-            top[left] = poker
+                top.append(poker)
+            # 把这张牌放到牌新建堆的堆顶
+            else:
+                top[left] = poker
         return piles
+
+
+if __name__ == '__main__':
+    lis = LIS([10, 9, 2, 5, 3, 7, 101, 18])
+    res = lis.lengthOfLIS_3()
+    print(res)
