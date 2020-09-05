@@ -27,6 +27,7 @@ def llen(l):
 
 class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        """结果存储在l1中，提前将l1换成最长的"""
         if llen(l1) < llen(l2):
             l1, l2 = l2, l1
         head1 = l1
@@ -34,6 +35,7 @@ class Solution:
         carry = 0
 
         for i in range(length):
+            # l2（较短）的还没结束
             if l2:
                 val1, val2 = l1.val, l2.val
                 l1.val = (val1 + val2 + carry) % 10
@@ -43,6 +45,7 @@ class Solution:
                 val1 = l1.val
                 l1.val = (val1 + carry) % 10
                 carry = (val1 + carry) // 10
+            # 如果l1为最后一个节点，并且还有进位，则新建一个节点
             if not l1.next and carry == 1:
                 l1.next = ListNode(carry)
                 l1 = l1.next

@@ -9,9 +9,9 @@
     输出: true
     解释: 数组可以分割成 [1, 5, 5] 和 [11].
 示例 2:
-输入: [1, 2, 3, 5]
-输出: false
-解释: 数组不能分割成两个元素和相等的子集.
+    输入: [1, 2, 3, 5]
+    输出: false
+    解释: 数组不能分割成两个元素和相等的子集.
 """
 
 
@@ -30,12 +30,15 @@ class SeparationEqualSumSubset(object):
         for i in range(1, n + 1):
             for j in range(amount, 0, -1):
                 if j - nums[i - 1] < 0:
+                    # 背包容量不足，不能装入第i个物品
                     dp[i][j] = dp[i - 1][j]
                 else:
+                    # 第i个物品 装入或者不装入背包
                     dp[i][j] = dp[i][j - nums[i - 1]] or dp[i - 1][j]
         return dp[n][amount]
 
     def canPartition_space(self, nums):
+        """空间压缩：dp[i][j] 都是通过上一行dp[i-1][...]转换来的"""
         if sum(nums) % 2 != 0:
             return False
         amount = sum(nums) // 2
