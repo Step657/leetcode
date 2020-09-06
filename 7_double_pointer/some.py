@@ -1,11 +1,16 @@
 class ListNode(object):
     """Definition for singly-linked list"""
+
     def __init__(self, x):
         self.val = x
         self.next = None
 
 
 class FastSlow(object):
+    """
+    fast and slow pointer and the application.
+    """
+
     def __init__(self, head):
         """
         initialize fast and slow pointer equal head
@@ -24,7 +29,7 @@ class FastSlow(object):
             if fast is slow:
                 return True
         return False
-    
+
     def detectCycle(self):
         fast, slow = self.fast, self.slow
 
@@ -76,8 +81,8 @@ class LeftRight(object):
         left, right = 0, self.length - 1
         array, target = self.array, self.target
         while left <= right:
-            mid = left + (right-left) / 2
-            if  array[mid] == target:
+            mid = left + (right - left) / 2
+            if array[mid] == target:
                 return mid
             elif array[mid] < target:
                 left = mid + 1
