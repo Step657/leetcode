@@ -29,6 +29,7 @@ class TreeNode:
 
 
 class Solution:
+    """BFS："""
     def levelOrderBottom(self, root: TreeNode) -> List[List[int]]:
         res = []
         self.path([root], res)
