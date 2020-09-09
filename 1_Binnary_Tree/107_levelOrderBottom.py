@@ -17,6 +17,7 @@
   [3]
 ]
 """
+import queue
 from typing import List
 
 
@@ -36,6 +37,12 @@ class Solution:
         return list(reversed(res))
 
     def path(self, closed, res):
+        """
+        递归遍历
+        :param closed: 存放当前扩展的结点
+        :param res: 结果列表
+        :return:
+        """
         if len(closed) == 0:
             return
         opened = []
@@ -49,3 +56,13 @@ class Solution:
             closed.remove(i)
         res.append(temp)
         self.path(opened, res)
+
+    def levelTraverse(self, root):
+        q = queue.Queue()
+        q.put(root)
+        cur = None
+        res = []
+        while q.not_empty():
+            cur = q.get()
+            res.append(q.get().val)
+
