@@ -35,7 +35,7 @@ class MaxPQ(object):
         :param N: 当前priority queue 中的元素个数
         :param cap: pq 的容量
         """
-        self.pq = [Node() for i in range(cap + 1)]  # index 0 is't use
+        self.pq = [Node() for i in range(cap + 1)]  # index 0 is not use
         self.N = N
 
     def max(self):
@@ -45,18 +45,17 @@ class MaxPQ(object):
     def insert(self, e):
         """插入元素 e """
         self.N += 1
-        self.pq[self.N] = e     # 先把元素加到最后
-        self.__swim(self.N)     # 然后让它上浮到正确的位置
+        self.pq[self.N] = e  # 先把元素加到最后
+        self.__swim(self.N)  # 然后让它上浮到正确的位置
 
     def delMax(self):
         """删除并返回当前队列中的最大元素"""
-        max = self.pq[1]    # 最大堆的堆顶就是最大元素
+        max = self.pq[1]  # 最大堆的堆顶就是最大元素
         self.__exchange(1, self.N)
         self.pq[self.N] = None
         self.N -= 1
         self.__sink(1)
         return max
-
 
     def __swim(self, k):
         """上浮第 k 个元素，以维护最大堆的性质"""
