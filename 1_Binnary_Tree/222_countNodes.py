@@ -25,10 +25,25 @@ class TreeNode:
 
 class Solution:
     def countNodes(self, root: TreeNode) -> int:
-        depth, width = 0, 0
+        """
+        完全二叉树的节点总数 = 左子树的节点总数 + 1(根节点) + 右子树的节点总数
+        :param root:
+        :return:
+        """
+        if not root:
+            return 0
+        lh, rh = self.__getHeight(root.left), self.__getHeight(root.right)
+        if lh == rh:
+            return (2 ** lh -1) + 1 + self.countNodes(root.right)
+        else:
+            return self.countNodes(root.left) + 1 + (2 ** rh - 1)
 
-        def traverse(root):
-            # global depth, width
-           if not root:
-               return
-           if
+    def __getHeight(self, root: TreeNode) -> int:
+        """
+        获得以root为根的完全二叉树的深度
+        :param root:
+        :return: height：int
+        """
+        if not root:
+            return 0
+        return 1 + self.__getHeight(root.left)

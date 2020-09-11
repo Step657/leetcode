@@ -21,6 +21,10 @@ class FastSlow(object):
         self.head = head
 
     def hasCucel(self):
+        """
+        判断链表是否有环，快慢指针, 快指针一次走两步，慢指针一次走一步，若相遇则说明有环，否则无环
+        :return: bool
+        """
         fast, slow = self.fast, self.slow
 
         while fast is not None and fast.next is not None:
