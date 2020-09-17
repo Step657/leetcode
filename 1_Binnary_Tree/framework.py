@@ -166,7 +166,7 @@ class BST:
         :return:
         """
         if not root:
-            return None
+            return
         if root.val == key:
             if not root.left:
                 return root.right
